@@ -204,8 +204,9 @@ class Cleos :
                          fully_offline=False, chain_id=None) :
         ''' parameter keys can be a list of WIF strings or EOSKey objects or a filename to key file'''
         if fully_offline:
-            assert transaction.get('ref_block_num') and transaction.get('ref_block_prefix'), \
-                'ref_block_num or ref_block_prefix must be provided'
+            assert transaction.get('ref_block_num'), 'ref_block_num must be provided'
+            assert transaction.get('ref_block_prefix'), 'ref_block_prefix must be provided'
+            assert chain_id, 'chain_id must be provided'
             trx = Transaction(transaction, dict(), dict())
         else:
             chain_info,lib_info = self.get_chain_lib_info()
